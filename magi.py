@@ -1,4 +1,12 @@
-def magi1(dimension):
+'''
+/********************************************************************************
+* Name:        Peter Mustermann     Klasse: DQI YY                              *
+* Prog.Name:   Musterman_verkListe  Dynamische verkettete Liste mit Zeigern     *
+* Version:     1.2                  Datum: TT.MM.YYYY                           *
+* Progsprache: Microsoft D# FUTURE  OS: Microsoft Windows Future                *
+* *******************************************************************************/
+'''
+def magi_1(dimension):
     x = int(dimension / 2)
     y = 0
     val = 1
@@ -28,7 +36,7 @@ def magi1(dimension):
     show_maggi(maggi)
 
 
-def magi2(dimension):
+def magi_2(dimension):
     x = int(dimension / 2)
     y = int(dimension / 2) + 1
     val = 1
@@ -78,9 +86,11 @@ if __name__ == "__main__":
             dimension_input = int(input("Dimension: "))
             if dimension_input % 2 == 1:
                 dimension = dimension_input
+            else:
+                dimension = 3
         elif choice == "1":
-            magi1(dimension)
+            magi_1(dimension)
         elif choice == "2":
-            magi2(dimension)
+            magi_2(dimension)
         elif choice.lower() == "x":
             exit()
