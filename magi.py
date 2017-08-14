@@ -1,7 +1,4 @@
-dimension = 11
-
-
-def magi1():
+def magi1(dimension):
     x = int(dimension / 2)
     y = 0
     val = 1
@@ -31,7 +28,7 @@ def magi1():
     show_maggi(maggi)
 
 
-def magi2():
+def magi2(dimension):
     x = int(dimension / 2)
     y = int(dimension / 2) + 1
     val = 1
@@ -71,17 +68,19 @@ def show_maggi(maggi):
         print()
 
 
-while True:
-    print(
+if __name__ == "__main__":
+    dimension = 3
+    while True:
+        print(
         "(N) Eingabe der Dimension (3-11 / Default: 3)\n(1) Darstellen des magischen Quadrats nach Algorithmus 1\n(2) Darstellen des magischen Quadrats nach Algorithmus 2\n(X) Exit")
-    choice = input()
-    if choice.lower() == "n":
-        dimension_input = int(input("Dimension: "))
-        if (dimension_input % 2 == 1):
-            dimension = dimension_input
-    elif choice == "1":
-        magi1()
-    elif choice == "2":
-        magi2()
-    elif choice.lower() == "x":
-        exit()
+        choice = input()
+        if choice.lower() == "n":
+            dimension_input = int(input("Dimension: "))
+            if dimension_input % 2 == 1:
+                dimension = dimension_input
+        elif choice == "1":
+            magi1(dimension)
+        elif choice == "2":
+            magi2(dimension)
+        elif choice.lower() == "x":
+            exit()
