@@ -1,9 +1,9 @@
 '''
 /********************************************************************************
-* Name:        Peter Mustermann     Klasse: DQI YY                              *
-* Prog.Name:   Musterman_verkListe  Dynamische verkettete Liste mit Zeigern     *
-* Version:     1.2                  Datum: TT.MM.YYYY                           *
-* Progsprache: Microsoft D# FUTURE  OS: Microsoft Windows Future                *
+* Name:        Simon Bullik         Klasse: DQI16                               *
+* Prog.Name:   Bullik_magiQuad      Magische Quadrate erstellen                 *
+* Version:     1.0                  Datum: 14.08.2017                           *
+* Progsprache: Python               OS: Microsoft Windows 7                     *
 * *******************************************************************************/
 '''
 def magi_1(dimension):
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         choice = input()
         if choice.lower() == "n":
             dimension_input = int(input("Dimension: "))
-            if dimension_input % 2 == 1:
+            if dimension_input % 2 == 1 and dimension_input > 2:
                 dimension = dimension_input
             else:
                 dimension = 3
