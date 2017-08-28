@@ -15,7 +15,7 @@ def magi_1(dimension, multiplicator):
     x = int(dimension / 2)
     y = 0
     val = 1
-    maggi = {(x, y): val * multiplicator}
+    magi = {(x, y): val * multiplicator}
     val += 1
     while val <= dimension ** 2:
         y_new = y - 1
@@ -28,7 +28,7 @@ def magi_1(dimension, multiplicator):
             x_new = dimension - 1
         elif x_new > dimension - 1:
             x_new = 0
-        if (x_new, y_new) in maggi:
+        if (x_new, y_new) in magi:
             if y + 1 > dimension - 1:
                 y_new = 0
             else:
@@ -36,16 +36,16 @@ def magi_1(dimension, multiplicator):
             x_new = x
         x = x_new
         y = y_new
-        maggi[(x, y)] = val * multiplicator
+        magi[(x, y)] = val * multiplicator
         val += 1
-    return maggi
+    return magi
 
 
 def magi_2(dimension, multiplicator):
     x = int(dimension / 2)
     y = int(dimension / 2) + 1
     val = 1
-    maggi = {(x, y): val * multiplicator}
+    magi = {(x, y): val * multiplicator}
     val += 1
     while val <= dimension ** 2:
         y_new = y + 1
@@ -58,7 +58,7 @@ def magi_2(dimension, multiplicator):
             x_new = dimension - 1
         elif x_new > dimension - 1:
             x_new = 0
-        if (x_new, y_new) in maggi:
+        if (x_new, y_new) in magi:
             if y + 2 > dimension - 1:
                 if y + 2 > dimension:
                     y_new = 1
@@ -69,45 +69,84 @@ def magi_2(dimension, multiplicator):
             x_new = x
         x = x_new
         y = y_new
-        maggi[(x, y)] = val * multiplicator
+        magi[(x, y)] = val * multiplicator
         val += 1
-    return maggi
+    return magi
 
 
-def show_maggi(maggi):
+def show_magi(magi):
+    width = 0
+
+    if "PYCHARM_HOSTED" not in os.environ:
+        width = os.get_terminal_size().columns
+
+    horizontal = []
+    sum = "|"
+    diag = 0
     for i in range(0, dimension):
+        horizontal.append(0)
+    for i in range(0, dimension):
+        row = "|"
+        vert = 0
         for j in range(0, dimension):
-            print(" " + str(maggi[(j, i)]).ljust(len(str(dimension ** 2))) + " ", end="|")
-        print()
+            row += " " + str(magi.get((j, i))).ljust(len(str((dimension ** 3 + dimension) / 2))) + "|"
+            vert += magi.get((j, i))
+            horizontal[i] += magi.get((j, i))
+        row += "| " + str(vert).ljust(len(str((dimension ** 3 + dimension) / 2)))
+        sum += " " + str(horizontal[i]).ljust(len(str((dimension ** 3 + dimension) / 2))) + "|"
+        diag += magi.get((i, i))
+        print(row.center(width))
+    sum += "| " + str(diag).ljust(len(str((dimension ** 3 + dimension) / 2)))
+    separate = ""
+    for i in range(0, len(row)):
+        separate += "-"
+    print(separate.center(width))
+    print(sum.center(width), end="")
+    print()
 
 
-def saveHTML(maggi):
-    html = "<!DOCTYPE html>\n"
-    html += "<html>\n"
-    html += "<head>\n"
-    html += "<title>Magisches Quadrat</title>\n"
-    html += "<style>\n"
-    html += "table tr td {padding: 25px; text-align: center; line-height: 100%; border: 1px solid black;}\n"
-    html += "</style>\n"
-    html += "</head>\n"
-    html += "<body>\n"
-    html += "<h1>Magisches Quadrat</h1>\n"
-    html += "<table>\n"
+def saveHTML(magi):
+    html = "<!DOCTYPE html>\n" \
+           "<html>\n" \
+           "<head>\n" \
+           "<meta charset=\"UTF-8\">\n" \
+           "<title>Magisches Quadrat</title>\n" \
+           "<link rel=\"stylesheet\" href=\"style.css\">\n" \
+           "<script src=\"script.js\"></script>\n" \
+           "</head>\n" \
+           "<body>\n" \
+           "<h1>Magisches Quadrat</h1>\n" \
+           "<p>Dimension: " + str(dimension) + "</p>\n" \
+           "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
+           "<table>\n"
 
+    horizontal = []
+    diag = 0
+    for i in range(0, dimension):
+        horizontal.append(0)
     for i in range(0, dimension):
         html += "<tr>\n"
+        sum = 0
         for j in range(0, dimension):
-            html += "<td>" + str(maggi[(j, i)]) + "</td>\n"
+            sum += magi.get((j, i))
+            html += "<td>" + str(magi.get((j, i))) + "</td>\n"
+            horizontal[i] += magi.get((j, i))
+        diag += magi.get((i, i))
+        html += "<td class=\"sum\">" + str(sum) + "</td>\n"
         html += "</tr>\n"
+    html += "<tr>\n"
+    for i in horizontal:
+        html += "<td class=\"sum\">" + str(i) + "</td>\n"
+    html += "<td class=\"sum\">" + str(diag) + "</td>\n" \
+                            "</tr>" \
+                            "</table>\n" \
+                            "</body>\n" \
+                            "</html>"
 
-    html += "</table>\n"
-    html += "</body>\n"
-    html += "</html>"
-
-    with open('maggi.html', 'w', encoding='utf-8') as htmlFile:
+    with open('magi.html', 'w', encoding='utf-8') as htmlFile:
         htmlFile.write(html)
 
-    path = os.path.abspath("maggi.html")
+    path = os.path.abspath("magi.html")
     webbrowser.open_new_tab("file://" + path)
 
 
@@ -116,7 +155,13 @@ if __name__ == "__main__":
     multiplicator = 1
     while True:
         print(
-            "(N) Eingabe der Dimension (3-11 / Default: 3)\n(K) Eingabe des Multiplikators (Default: 1)\n(1) Darstellen des magischen Quadrats nach Algorithmus 1\n(2) Darstellen des magischen Quadrats nach Algorithmus 2\n(3) Speichern als „maggi.html“ nach Algorithums 1\n(4) Speichern als „maggi.html“ nach Algorithums 2\n(X) Exit")
+            "(N) Eingabe der Dimension (3-11 / Default: 3)\n"
+            "(K) Eingabe des Multiplikators (Default: 1)\n"
+            "(1) Darstellen des magischen Quadrats nach Algorithmus 1\n"
+            "(2) Darstellen des magischen Quadrats nach Algorithmus 2\n"
+            "(3) Speichern als „magi.html“ nach Algorithums 1\n"
+            "(4) Speichern als „magi.html“ nach Algorithums 2\n"
+            "(X) Exit")
         choice = input()
         if choice.lower() == "n":
             dimension_input = int(input("Dimension: "))
@@ -127,9 +172,9 @@ if __name__ == "__main__":
         elif choice.lower() == "k":
             multiplicator = int(input("Multiplikator: "))
         elif choice == "1":
-            show_maggi(magi_1(dimension, multiplicator))
+            show_magi(magi_1(dimension, multiplicator))
         elif choice == "2":
-            show_maggi(magi_2(dimension, multiplicator))
+            show_magi(magi_2(dimension, multiplicator))
         elif choice == "3":
             saveHTML(magi_1(dimension, multiplicator))
         elif choice == "4":
