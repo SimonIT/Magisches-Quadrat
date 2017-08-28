@@ -110,6 +110,8 @@ def saveHTML(magi):
            "<html>\n" \
            "<head>\n" \
            "<meta charset=\"UTF-8\">\n" \
+           "<meta name=\"author\" content=\"Simon Bullik\">\n" \
+           "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" \
            "<title>Magisches Quadrat</title>\n" \
            "<link rel=\"stylesheet\" href=\"style.css\">\n" \
            "<script src=\"script.js\"></script>\n" \
@@ -117,8 +119,8 @@ def saveHTML(magi):
            "<body>\n" \
            "<h1>Magisches Quadrat</h1>\n" \
            "<p>Dimension: " + str(dimension) + "</p>\n" \
-           "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
-           "<table>\n"
+                                               "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
+                                               "<table>\n"
 
     horizontal = []
     diag = 0
@@ -138,16 +140,24 @@ def saveHTML(magi):
     for i in horizontal:
         html += "<td class=\"sum\">" + str(i) + "</td>\n"
     html += "<td class=\"sum\">" + str(diag) + "</td>\n" \
-                            "</tr>" \
-                            "</table>\n" \
-                            "</body>\n" \
-                            "</html>"
+                                               "</tr>" \
+                                               "</table>\n" \
+                                               "</body>\n" \
+                                               "</html>"
 
     with open('magi.html', 'w', encoding='utf-8') as htmlFile:
         htmlFile.write(html)
 
     path = os.path.abspath("magi.html")
     webbrowser.open_new_tab("file://" + path)
+
+
+def rotate(magi):
+    array2 = {}
+    for i in range(0, dimension):
+        for j in range(0, dimension):
+            array2[(i, j)] = magi.get((dimension - 1 - j, i))
+    return array2
 
 
 if __name__ == "__main__":
@@ -170,7 +180,7 @@ if __name__ == "__main__":
             else:
                 dimension = 3
         elif choice.lower() == "k":
-            multiplicator = int(input("Multiplikator: "))
+            multiplicator = float(input("Multiplikator: "))
         elif choice == "1":
             show_magi(magi_1(dimension, multiplicator))
         elif choice == "2":
@@ -179,5 +189,7 @@ if __name__ == "__main__":
             saveHTML(magi_1(dimension, multiplicator))
         elif choice == "4":
             saveHTML(magi_2(dimension, multiplicator))
+        elif choice == "5":
+            show_magi(rotate(magi_1(dimension, multiplicator)))
         elif choice.lower() == "x":
             exit()
