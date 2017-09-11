@@ -119,8 +119,9 @@ def saveHTML(magi):
            "<body>\n" \
            "<h1>Magisches Quadrat</h1>\n" \
            "<p>Dimension: " + str(dimension) + "</p>\n" \
+                                               "<p>Drehungen <input id=\"turns\" type=\"range\" step=\"90\" min=\"0\" max=\"360\" value=\"0\" onchange=\"rotate()\"></p><br>\n" \
                                                "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
-                                               "<table>\n"
+                                               "<table id=\"magi\">\n"
 
     horizontal = []
     diag = 0
@@ -152,21 +153,28 @@ def saveHTML(magi):
     webbrowser.open_new_tab("file://" + path)
 
 
-def rotate(magi):
-    array2 = {}
-    for i in range(0, dimension):
-        for j in range(0, dimension):
-            array2[(i, j)] = magi.get((dimension - 1 - j, i))
-    return array2
+def rotate(magi, turns=0):
+    if turns == 0:
+        return magi
+    else:
+        for i in range(turns):
+            magi_old = magi
+            magi = {}
+            for i in range(0, dimension):
+                for j in range(0, dimension):
+                    magi[(i, j)] = magi_old.get((dimension - 1 - j, i))
+        return magi
 
 
 if __name__ == "__main__":
     dimension = 3
     multiplicator = 1
+    turns = 0
     while True:
         print(
             "(N) Eingabe der Dimension (3-11 / Default: 3)\n"
             "(K) Eingabe des Multiplikators (Default: 1)\n"
+            "(T) Eingabe der Drehungen\n"
             "(1) Darstellen des magischen Quadrats nach Algorithmus 1\n"
             "(2) Darstellen des magischen Quadrats nach Algorithmus 2\n"
             "(3) Speichern als „magi.html“ nach Algorithums 1\n"
@@ -181,15 +189,15 @@ if __name__ == "__main__":
                 dimension = 3
         elif choice.lower() == "k":
             multiplicator = float(input("Multiplikator: "))
+        elif choice.lower() == "t":
+            turns = int(input("Drehungen: "))
         elif choice == "1":
-            show_magi(magi_1(dimension, multiplicator))
+            show_magi(rotate(magi_1(dimension, multiplicator), turns))
         elif choice == "2":
-            show_magi(magi_2(dimension, multiplicator))
+            show_magi(rotate(magi_2(dimension, multiplicator), turns))
         elif choice == "3":
-            saveHTML(magi_1(dimension, multiplicator))
+            saveHTML(rotate(magi_1(dimension, multiplicator), turns))
         elif choice == "4":
-            saveHTML(magi_2(dimension, multiplicator))
-        elif choice == "5":
-            show_magi(rotate(magi_1(dimension, multiplicator)))
+            saveHTML(rotate(magi_2(dimension, multiplicator), turns))
         elif choice.lower() == "x":
             exit()

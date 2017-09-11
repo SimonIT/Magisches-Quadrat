@@ -15,3 +15,14 @@ function toggle() {
         control.innerHTML = "Zeige Kontrolle";
     }
 }
+
+function rotate() {
+    var slider = document.getElementById("turns");
+    var magi = document.getElementById("magi");
+
+    magi.style.transform = "rotate(" + slider.value + "deg)";
+    cells = magi.getElementsByTagName("td");
+    for (i = 0; i < cells.length; i++) {
+        cells[i].style.transform = "rotate(-" + slider.value + "deg)";
+    }
+}
