@@ -113,13 +113,13 @@ def saveHTML(magi):
            "<meta name=\"author\" content=\"Simon Bullik\">\n" \
            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" \
            "<title>Magisches Quadrat</title>\n" \
-           "<link rel=\"stylesheet\" href=\"style.css\">\n" \
+           "<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\">\n" \
            "<script src=\"script.js\"></script>\n" \
            "</head>\n" \
            "<body>\n" \
            "<h1>Magisches Quadrat</h1>\n" \
            "<p>Dimension: " + str(dimension) + "</p>\n" \
-                                               "<p>Drehungen <input id=\"turns\" type=\"range\" step=\"90\" min=\"0\" max=\"360\" value=\"0\" onchange=\"rotate()\"></p><br>\n" \
+                                               "<label for=\"turns\">Drehungen</label><input id=\"turns\" type=\"range\" step=\"90\" min=\"0\" max=\"360\" value=\"0\" onchange=\"rotate()\"><br>\n" \
                                                "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
                                                "<table id=\"magi\">\n"
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
         print(
             "(N) Eingabe der Dimension (3-11 / Default: 3)\n"
             "(K) Eingabe des Multiplikators (Default: 1)\n"
-            "(T) Eingabe der Drehungen\n"
+            "(T) Eingabe der Drehungen (Default: 0)\n"
             "(1) Darstellen des magischen Quadrats nach Algorithmus 1\n"
             "(2) Darstellen des magischen Quadrats nach Algorithmus 2\n"
             "(3) Speichern als „magi.html“ nach Algorithums 1\n"
