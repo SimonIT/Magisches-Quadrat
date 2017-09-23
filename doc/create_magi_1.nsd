@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="http://structorizer.fisch.lu/" version="3.26-05" preRepeat="until " postFor="to" preReturn="return" postForIn="in" preWhile="while " output="OUTPUT" input="INPUT" preFor="for" preExit="exit" preLeave="leave" ignoreCase="true" preForIn="foreach" stepFor="by" author="simon" created="2017-09-22" changedby="simon" changed="2017-09-23" text="&#34;create_magi_1(dimension, multiplicator)&#34;" comment="" color="ffffff" type="program" style="nice">
+	<children>
+		<instruction text="&#34;x = int(dimension / 2)&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;y = 0&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;val = 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;magi = {(x, y): val * multiplicator}&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;val += 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+		<while text="&#34;while val &#60;= dimension ** 2&#34;" comment="" color="ffffff" disabled="0">
+			<qWhile>
+				<instruction text="&#34;y_new = y - 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;x_new = x + 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<alternative text="&#34;if y_new &#60; 0&#34;" comment="" color="ffffff" disabled="0">
+					<qTrue>
+						<instruction text="&#34;y_new = dimension - 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qTrue>
+					<qFalse>
+						<alternative text="&#34;if y_new &#62; dimension - 1&#34;" comment="" color="ffffff" disabled="0">
+							<qTrue>
+								<instruction text="&#34;y_new = 0&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qTrue>
+							<qFalse color="ffffff">
+							</qFalse>
+						</alternative>
+					</qFalse>
+				</alternative>
+				<alternative text="&#34;if x_new &#60; 0&#34;" comment="" color="ffffff" disabled="0">
+					<qTrue>
+						<instruction text="&#34;x_new = dimension - 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qTrue>
+					<qFalse>
+						<alternative text="&#34;if x_new &#62; dimension - 1&#34;" comment="" color="ffffff" disabled="0">
+							<qTrue>
+								<instruction text="&#34;x_new = 0&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qTrue>
+							<qFalse color="ffffff">
+							</qFalse>
+						</alternative>
+					</qFalse>
+				</alternative>
+				<alternative text="&#34;if (x_new, y_new) in magi&#34;" comment="" color="ffffff" disabled="0">
+					<qTrue>
+						<alternative text="&#34;if y + 1 &#62; dimension - 1&#34;" comment="" color="ffffff" disabled="0">
+							<qTrue>
+								<instruction text="&#34;y_new = 0&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qTrue>
+							<qFalse>
+								<instruction text="&#34;y_new = y + 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qFalse>
+						</alternative>
+						<instruction text="&#34;x_new = x&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qTrue>
+					<qFalse color="ffffff">
+					</qFalse>
+				</alternative>
+				<instruction text="&#34;x = x_new&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;y = y_new&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;magi[(x, y)] = val * multiplicator&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;val += 1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qWhile>
+		</while>
+		<instruction text="&#34;return magi&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+	</children>
+</root>
