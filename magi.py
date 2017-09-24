@@ -5,7 +5,7 @@ import os
 /********************************************************************************
 * Name:        Simon Bullik         Klasse: DQI16                               *
 * Prog.Name:   Bullik_magiQuad      Magische Quadrate erstellen                 *
-* Version:     1.0                  Datum: 14.08.2017                           *
+* Version:     1.0                  Datum: 24.09.2017                           *
 * Progsprache: Python3              OS: Microsoft Windows 10                    *
 * *******************************************************************************/
 '''
@@ -75,6 +75,7 @@ def create_magi_2(dimension=3, multiplicator=1):
 
 
 def show_magi(magi):
+    clear()
     width = 0  # Setze die breite auf null
 
     if "PYCHARM_HOSTED" not in os.environ:  # Wenn das Programm nicht in PyCharm läuft
@@ -107,7 +108,7 @@ def show_magi(magi):
     print()  # Mache einen Absatz
 
 
-def saveHTML(magi):
+def save_HTML(magi):
     # Füge das Grundgerüst der HTML Datei an
     html = "<!DOCTYPE html>\n" \
            "<html>\n" \
@@ -165,6 +166,14 @@ def rotate(magi, turns=0):
     return magi
 
 
+def clear():
+    # Vorherige Bildschirmausgaben löschen
+    if "nt" in os.name:
+        os.system("cls")  # Auf Windows mit cls
+    else:
+        os.system("clear")  # Auf den meisten Linux / Apple Systemen mit clear
+
+
 if __name__ == "__main__":
     dimension = 3  # Standarddimension
     multiplicator = 1  # Standardmultiplikator
@@ -195,10 +204,10 @@ if __name__ == "__main__":
             show_magi(rotate(create_magi_2(dimension, multiplicator),
                              turns))  # zeige das magische Qudrat nach Algorythmus 2 mit den entsprechenden Drehunge und dem Multiplikator an
         elif choice == "3":  # Wenn 3 eingegeben wurde
-            saveHTML(rotate(create_magi_1(dimension, multiplicator),
-                            turns))  # speichere das magische Qudrat nach Algorythmus 1 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
+            save_HTML(rotate(create_magi_1(dimension, multiplicator),
+                             turns))  # speichere das magische Qudrat nach Algorythmus 1 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
         elif choice == "4":  # Wenn 4 eingegeben wurde
-            saveHTML(rotate(create_magi_2(dimension, multiplicator),
-                            turns))  # speichere das magische Qudrat nach Algorythmus 2 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
+            save_HTML(rotate(create_magi_2(dimension, multiplicator),
+                             turns))  # speichere das magische Qudrat nach Algorythmus 2 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
         elif choice.lower() == "x":  # Wenn x eingegeben wurde
             exit()  # Schließe das Programm
