@@ -11,8 +11,8 @@ Dem Benutzer wird ein Menü folgender Optionen in der Konsole angezeigt:
 * (T) Eingabe der Anzahl der 90-Grad-Drehungen gegen den Uhrzeigersinn
 * (1) Darstellen des magischen Quadrats nach Algorithmus 1
 * (2) Darstellen des magischen Quadrats nach Algorithmus 2
-* (3) Speichern als „magi.html“ nach Algorithums 1
-* (4) Speichern als „magi.html“ nach Algorithums 2
+* (3) Speichern als „magi.html“ nach Algorithmus 1
+* (4) Speichern als „magi.html“ nach Algorithmus 2
 
 Nach Auswahl eines Menüpunktes wird der Benutzer aufgefordert, eine Entscheidung zu treffen und gelangt anschließend wieder ins Menü zurück.
 
