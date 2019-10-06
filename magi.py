@@ -13,27 +13,27 @@ import os
 
 def create_magi_1(dimension=3, multiplicator=1):
     x = int(dimension / 2)  # Startwert X in der Mitte des Quadrats
-    y = 0  # Startwret Y oben
-    val = 1  # Startwert ist eins
+    y = 0  # Startwert Y oben
+    val = 1
     magi = {(x, y): val * multiplicator}  # Eintragen des Wertes in das Dictionary
     val += 1  # Erhöhe den Wert um 1
     while val <= dimension ** 2:  # Wiederhohle bis der Wer größer als dimension^2 ist
         y_new = y - 1  # Gehe einen nach oben
         x_new = x + 1  # Gehe einen nach rechts
         if y_new < 0:  # Wenn die neue Position nach oben nicht im Feld ist
-            y_new = dimension - 1  # Setze die Y Koordinate nach ganz unten
+            y_new = dimension - 1  # Setze die Y-Koordinate nach ganz unten
         elif y_new > dimension - 1:  # Wenn die neue Position nach unten nicht im Feld ist
             y_new = 0  # Setze Y Koordinate nach ganz oben
         if x_new < 0:  # Wenn die neue Position nach links nicht im Feld ist
-            x_new = dimension - 1  # Setze die neue x Koordinate nach ganz rechts
+            x_new = dimension - 1  # Setze die neue X-Koordinate nach ganz rechts
         elif x_new > dimension - 1:  # Wenn die neue Position rechts nicht im Feld ist
-            x_new = 0  # Setze die neue x Koordinate nach anz links
+            x_new = 0  # Setze die neue X-Koordinate nach ganz links
         if (x_new, y_new) in magi:  # Wenn es die neuen Koordinaten schon im Dictionary sind
             if y + 1 > dimension - 1:  # Wenn Das Feld unter dem alten Feld außerhalb des Quadrats ist
-                y_new = 0  # Setze die Y Koordinaten nach ganz oben
+                y_new = 0  # Setze die Y-Koordinaten nach ganz oben
             else:
                 y_new = y + 1  # Sonst Setze die y Koordinate auf das Feld unter dem alten Feld
-            x_new = x  # Die x Koordinate bleibt gelich zum alten Feld
+            x_new = x  # Die X-Koordinate bleibt gleich zum alten Feld
         x = x_new
         y = y_new
         magi[(x, y)] = val * multiplicator  # Eintragen des Werts in das Dictionary
@@ -44,29 +44,29 @@ def create_magi_1(dimension=3, multiplicator=1):
 def create_magi_2(dimension=3, multiplicator=1):
     x = int(dimension / 2)  # Startwert X in der Mitte des Quadrats
     y = int(dimension / 2) + 1  # Startwert Y Feld ein Feld unter der Mitte
-    val = 1  # Startwert ist eins
+    val = 1
     magi = {(x, y): val * multiplicator}  # Eintragen des Wertes in das Dictionary
     val += 1  # Erhöhe den Wert um 1
     while val <= dimension ** 2:  # Wiederhohle bis der Wer größer als dimension^2 ist
         y_new = y + 1  # Gehe einen nach unten
         x_new = x + 1  # Gehe einen nach rechts
         if y_new < 0:  # Wenn die neue Position nach oben nicht im Feld ist
-            y_new = dimension - 1  # Setze die Y Koordinate nach ganz unten
+            y_new = dimension - 1  # Setze die Y-Koordinate nach ganz unten
         elif y_new > dimension - 1:  # Wenn die neue Position nach unten nicht im Feld ist
             y_new = 0  # Setze Y Koordinate nach ganz oben
         if x_new < 0:  # Wenn die neue Position nach links nicht im Feld ist
-            x_new = dimension - 1  # Setze die neue x Koordinate nach ganz rechts
+            x_new = dimension - 1  # Setze die neue X-Koordinate nach ganz rechts
         elif x_new > dimension - 1:  # Wenn die neue Position rechts nicht im Feld ist
-            x_new = 0  # Setze die neue x Koordinate nach anz links
+            x_new = 0  # Setze die neue X-Koordinate nach ganz links
         if (x_new, y_new) in magi:  # Wenn es die neuen Koordinaten schon im Dictionary sind
             if y + 2 > dimension - 1:  # Wenn das Feld um mind. ein Feld nicht im Feld sind
                 if y + 2 > dimension:  # Wenn das Felder um mind. zwei Feld nicht im Feld sind
-                    y_new = 1  # Setzte die Y Koordinate auf eins
+                    y_new = 1  # Setzte die Y-Koordinate auf eins
                 else:
-                    y_new = 0  # Sonst setzt die y Kooridnate auf null
+                    y_new = 0  # Sonst setzt die Y-Kooridnate auf null
             else:
-                y_new = y + 2  # Setze die Y Koordinate um zwei nach unten
-            x_new = x  # Setze die X Koordinate auf die alten
+                y_new = y + 2  # Setze die Y-Koordinate um zwei nach unten
+            x_new = x  # Setze die X-Koordinate auf die alten
         x = x_new
         y = y_new
         magi[(x, y)] = val * multiplicator  # Eintragen des Werts in das Dictionary
@@ -76,40 +76,40 @@ def create_magi_2(dimension=3, multiplicator=1):
 
 def show_magi(magi):
     clear()
-    width = 0  # Setze die breite auf null
+    width = 0
 
     if "PYCHARM_HOSTED" not in os.environ:  # Wenn das Programm nicht in PyCharm läuft
-        width = os.get_terminal_size().columns  # Setze die breite auf die Terminalbreite
+        width = os.get_terminal_size().columns  # Setze die Breite auf die Terminalbreite
 
     vertical = []  # Initilisierung der Liste für die vetikale Summen
     sum = "|"  # Startwert für die Summenzeile
     diag = 0  # Initialisierung diagonale Summe
     for i in range(0, dimension):  # Für jede Zeile
-        row = "|"  # Anfangszeichen einer Zeile ist |
-        horizontal = 0  # Initialisiere die horizontale Summe auf null
-        vertical.append(0)  # Füge für jede Spaltensumme den Startwert null ein
+        row = "|"
+        horizontal = 0
+        vertical.append(0)
         for j in range(0, dimension):  # Für jede Spalte
             row += " " + str(magi.get((j, i))).ljust(len(str((
-                                                                 dimension ** 3 + dimension) / 2))) + "|"  # Füge der Zeile den Wert an, auf die Breite der Summen angepasst
+                                                                     dimension ** 3 + dimension) / 2))) + "|"  # Füge der Zeile den Wert hinzu, auf die Breite der Summen angepasst
             horizontal += magi.get((j, i))  # Addiere den Wert zu der Zeilensumme
             vertical[i] += magi.get((j, i))  # Addiere den Wert zur Spaltensumme
-        row += "| " + str(horizontal).ljust(len(str((dimension ** 3 + dimension) / 2)))  # Füge der Zeile die Summe an
+        row += "| " + str(horizontal).ljust(len(str((dimension ** 3 + dimension) / 2)))  # Füge der Zeile die Summe hinzu
         sum += " " + str(vertical[i]).ljust(
             len(str((dimension ** 3 + dimension) / 2))) + "|"  # Füge die Spaltensumme zusammen
         diag += magi.get((i, i))  # Addiere die Diagonalsumme
-        print(row.center(width))  # Gebe die Spalte aus
+        print(row.center(width))  # Gib die Spalte aus
     sum += "| " + str(diag).ljust(
         len(str((dimension ** 3 + dimension) / 2)))  # Füge zur Ausgabe die Diagonalsumme hinzu
     separate = ""  # Initialisierung der Trennungslinie
     for i in range(0, len(row)):
-        separate += "-"  # Füge nach der Länge der Zeilen Bindestriche an
-    print(separate.center(width))  # Gebe die die Trennlinie aus
-    print(sum.center(width))  # Gebe die vertikalen Summen aus
+        separate += "-"  # Füge je nach der Länge der Zeilen Bindestriche an
+    print(separate.center(width))  # Gib die Trennlinie aus
+    print(sum.center(width))  # Gib die vertikalen Summen aus
     print()  # Mache einen Absatz
 
 
 def save_HTML(magi):
-    # Füge das Grundgerüst der HTML Datei an
+    # Grundgerüst der HTML-Datei
     html = "<!DOCTYPE html>\n" \
            "<html>\n" \
            "<head>\n" \
@@ -126,18 +126,18 @@ def save_HTML(magi):
                                                "<label for=\"turns\">Drehungen</label><input id=\"turns\" type=\"range\" step=\"90\" min=\"0\" max=\"360\" value=\"0\" onchange=\"rotate()\"><br>\n" \
                                                "<button type=\"button\" onclick=\"toggle()\" id=\"control\">Zeige Kontrolle</button>\n" \
                                                "<table id=\"magi\">\n"
-    vertical = []  # Initialisierung der Liste für die vertikale Summen
-    diag = 0  # Startwert für die diagonlae Summe
-    for i in range(0, dimension):  # Für jede Zeile
+    vertical = []  # Initialisierung der Liste für die vertikalen Summen
+    diag = 0  # Startwert für die diagonale Summe
+    for i in range(0, dimension):
         vertical.append(0)  # Füge den Startwert für die vertikale Summe hinzu
-        html += "<tr>\n"  # Füge der HTML Sruktur den Start einer neuen Zeile an
+        html += "<tr>\n"  # Füge der HTML-Sruktur den Start einer neuen Zeile hinzu
         sum = 0  # Startwert der Zeilensumme
-        for j in range(0, dimension):  # Für jede Spalte
+        for j in range(0, dimension):
             sum += magi.get((j, i))  # Addiere den Wert zur Zeilensumme
-            html += "<td>" + str(magi.get((j, i))) + "</td>\n"  # Füge den Wert als HTML Tabellen Celle hinzu
+            html += "<td>" + str(magi.get((j, i))) + "</td>\n"  # Füge den Wert als HTML-Tabellen-Zelle hinzu
             vertical[i] += magi.get((j, i))  # Addiere den Wert zur vertikalen Summe
         diag += magi.get((i, i))  # Addiere den Wert zur digonalen Summe
-        html += "<td class=\"sum\">" + str(sum) + "</td>\n"  # Füge die Zeilensumme als HTML Tabbeln Zelle hinzu
+        html += "<td class=\"sum\">" + str(sum) + "</td>\n"  # Füge die Zeilensumme als HTML-Tabellen-Zelle hinzu
         html += "</tr>\n"  # Schließe die Zeile in HTML
     html += "<tr>\n"  # Fange neue Zeile in HTML an
     for i in vertical:
@@ -146,39 +146,39 @@ def save_HTML(magi):
                                                "</tr>" \
                                                "</table>\n" \
                                                "</body>\n" \
-                                               "</html>"  # Füge die Diagonale Summe an und schließe das Dokument
+                                               "</html>"  # Füge die diagonale Summe an und schließe das Dokument
 
-    with open('magi.html', 'w', encoding='utf-8') as htmlFile:  # öffne die HTML Datei zum Schreiben
-        htmlFile.write(html)  # Schreibe das HTML
+    with open('magi.html', 'w', encoding='utf-8') as htmlFile:  # öffne die HTMLDatei zum Schreiben
+        htmlFile.write(html)  # Schreibe die HTML-Datei
 
-    path = os.path.abspath("magi.html")  # Bekomme den absoluten Pfad zur HTML Datei
-    webbrowser.open_new_tab("file://" + path)  # Öffne die HTML Datei als neuer Tab im Webbrowser
+    path = os.path.abspath("magi.html")  # erhalte den absoluten Pfad zur HTML Datei
+    webbrowser.open_new_tab("file://" + path)  # öffne die HTML Datei als neuer Tab im Webbrowser
 
 
 def rotate(magi, turns=0):
-    for i in range(turns):  # Für dir Anzahl der Drehungen
-        magi_old = magi  # Mach ein Backup des aktuellen Quadrats
-        magi = {}  # lösche das Quadrat
+    for i in range(turns):
+        magi_old = magi  # erstelle Kopie des aktuellen Quadrats
+        magi = {}  # lösche das originale Quadrat
         for i in range(0, dimension):  # für jede Zeile
             for j in range(0, dimension):  # für jede Spalte
                 magi[(i, j)] = magi_old.get(
-                    (dimension - 1 - j, i))  # Füge den Wert von seinem "alten" Platz auf seinen neuen ein
+                    (dimension - 1 - j, i))  # Füge den Wert vom vorherigen Platz auf seinen neuen ein
     return magi
 
 
 def clear():
     # Vorherige Bildschirmausgaben löschen
     if "nt" in os.name:
-        os.system("cls")  # Auf Windows mit cls
+        os.system("cls")  # Auf Windows mit "cls"
     else:
-        os.system("clear")  # Auf den meisten Linux / Apple Systemen mit clear
+        os.system("clear")  # Auf den meisten Linux- und Apple-Systemen mit "clear"
 
 
 if __name__ == "__main__":
     dimension = 3  # Standarddimension
     multiplicator = 1  # Standardmultiplikator
     turns = 0  # Standardanzahl der Drehungen
-    while True:  # wiederhohle unendlich
+    while True:
         print(
             "(N) Eingabe der Dimension (3-11 / Default: 3)\n"
             "(K) Eingabe des Multiplikators (Default: 1)\n"
@@ -187,27 +187,27 @@ if __name__ == "__main__":
             "(2) Darstellen des magischen Quadrats nach Algorithmus 2\n"
             "(3) Speichern als „magi.html“ nach Algorithums 1\n"
             "(4) Speichern als „magi.html“ nach Algorithums 2\n"
-            "(X) Exit")  # Gebe das Menü aus
-        choice = input()  # Erwarte die Eingabe was geamcht werden soll
-        if choice.lower() == "n":  # wenn n eingegeben wurde
-            dimension_input = int(input("Dimension: "))  # Abfrage der Dimension
-            if dimension_input % 2 == 1 and dimension_input > 2:  # Wenn die Zahl ungerade und größer als zwei ist
-                dimension = dimension_input  # Setze die Dimension auf die eingegebene Dimension
-        elif choice.lower() == "k":  # Wenn k eingegeben wurde
-            multiplicator = float(input("Multiplikator: "))  # setze den Multiplikator auf die Eingabe
-        elif choice.lower() == "t":  # Wenn t eingegeben wurde
-            turns = int(input("Drehungen: "))  # Setze die Anzahl der Drehungen auf die Eingabe
-        elif choice == "1":  # Wenn 1 eingegeben wurde
+            "(X) Exit")  # zeigt das Menü an
+        choice = input()  # gibt an, was der Benutzer machen möchte
+        if choice.lower() == "n":
+            dimension_input = int(input("Dimension: "))
+            if dimension_input % 2 == 1 and dimension_input > 2:
+                dimension = dimension_input
+        elif choice.lower() == "k":
+            multiplicator = float(input("Multiplikator: "))  # aktualisiere Multiplikator nach Benutzerwunsch
+        elif choice.lower() == "t":
+            turns = int(input("Drehungen: "))  # aktualisiere Anzahl der Drehungen nach Benutzerwunsch
+        elif choice == "1":
             show_magi(rotate(create_magi_1(dimension, multiplicator),
-                             turns))  # zeige das magische Qudrat nach Algorythmus 1 mit den entsprechenden Drehunge und dem Multiplikator an
-        elif choice == "2":  # Wenn 2 eingegeben wurde
+                             turns))  # zeige das aktuelle magische Quadrat nach Algorithmus 1 an
+        elif choice == "2":
             show_magi(rotate(create_magi_2(dimension, multiplicator),
-                             turns))  # zeige das magische Qudrat nach Algorythmus 2 mit den entsprechenden Drehunge und dem Multiplikator an
-        elif choice == "3":  # Wenn 3 eingegeben wurde
+                             turns))  # zeige das aktuelle magische Quadrat nach Algorithmus 2 an
+        elif choice == "3":
             save_HTML(rotate(create_magi_1(dimension, multiplicator),
-                             turns))  # speichere das magische Qudrat nach Algorythmus 1 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
-        elif choice == "4":  # Wenn 4 eingegeben wurde
+                             turns))  # speichere das aktuelle magische Quadrat nach Algorithmus 1 als HTML-Datei
+        elif choice == "4":
             save_HTML(rotate(create_magi_2(dimension, multiplicator),
-                             turns))  # speichere das magische Qudrat nach Algorythmus 2 mit den entsprechenden Drehunge und dem Multiplikator als HTML Datei
-        elif choice.lower() == "x":  # Wenn x eingegeben wurde
-            exit()  # Schließe das Programm
+                             turns))  # speichere das aktuelle magische Quadrat nach Algorithmus 2 als HTML-Datei
+        elif choice.lower() == "x":
+            exit()  # schließe das Programm
